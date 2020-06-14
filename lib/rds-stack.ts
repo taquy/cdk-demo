@@ -4,7 +4,7 @@ import * as ec2 from '@aws-cdk/aws-ec2'
 import {IParameterGroup} from "@aws-cdk/aws-rds";
 
 export class RdsStack {
-    cluster: rds.DatabaseCluster;
+    public cluster: rds.DatabaseCluster;
 
     constructor(scope: Construct, vpc: ec2.Vpc) {
         // The code that defines your stack goes here
@@ -26,5 +26,7 @@ export class RdsStack {
                 vpc
             }
         });
+
+
     }
 }
