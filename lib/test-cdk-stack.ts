@@ -12,18 +12,13 @@ export class TestCdkStack extends cdk.Stack {
         const vpcStack = new VpcStack(this);
         const rdsStack = new RdsStack(this, vpcStack.vpc);
 
-
         const rdsSecret = <secretsmanager.ISecret>rdsStack.cluster.secret;
 
-        const region = process.env.CDK_DEFAULT_REGION;
-        const accountId = process.env.CDK_DEFAULT_ACCOUNT;
-        const rdsIdentifier = rdsStack.cluster.clusterIdentifier;
-
         const lambdaEnv = {
-            rdsArn: `arn:aws:rds:${region}:${accountId}:cluster:${rdsIdentifier}`,
+            rdsIdentifier: rdsStack.cluster.clusterIdentifier,
             rdsSecretArn: rdsSecret.secretArn,
             rdsEndpoint: rdsStack.cluster.clusterEndpoint.hostname,
         } as LambdaEnv;
-        const lambdaStack = new LambdaStack(this, lambdaEnv);
+        const lambdaStack = new LambdaStack(this, lambdaEnv, vpcStack.vpc);
     }
 }

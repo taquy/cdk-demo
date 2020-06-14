@@ -21,7 +21,7 @@ export class RdsStack {
             instanceProps: {
                 instanceType: ec2.InstanceType.of(ec2.InstanceClass.R4, ec2.InstanceSize.LARGE),
                 vpcSubnets: {
-                    subnetType: ec2.SubnetType.PUBLIC,
+                    subnetType: ec2.SubnetType.PRIVATE,
                 },
                 vpc
             }
